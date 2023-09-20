@@ -1,0 +1,10 @@
+#this is a source code to make logs files more readable coloring them
+
+tailc(){
+  esc=$(printf '\033')
+  test $# -ge 1 && /usr/bin/tail -n50 $* | sed -E -e "s/success.*|info.*/${esc}[1;32m&${esc}[0m/gi"| sed -E -e "s/warn.*/${esc}[1;33m&${esc}[0m/gi"| sed -E -e "s/erro.*|fatal.*/${esc}[1;31m&${esc}[0m/gi" | sed -E -e "s/debug/${esc}[1;35m&${esc}[0m/gi" || echo -e "Usage: tailc <filename> <additional parameters to /usr/bin/tail>"
+}
+lessc(){
+   esc=$(printf '\033')
+   test $# -ge 1 && /bin/cat $* |  sed -E -e "s/success.*|info.*/${esc}[1;32m&${esc}[0m/gi"| sed -E -e "s/warn.*/${esc}[1;33m&${esc}[0m/gi"| sed -E -e "s/erro.*|fatal.*/${esc}[1;31m&${esc}[0m/gi" | sed -E -e "s/debug.*/${esc}[1;35m&${esc}[0m/gi" | less -R || echo -e "Usage: lessc  <filename> <additional parameters to /usr/bin/cat>"
+}
